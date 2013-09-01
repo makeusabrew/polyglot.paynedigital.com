@@ -1,17 +1,28 @@
 exec { 'apt-get update': 
-    command => '/usr/bin/apt-get update',
+    command => '/usr/bin/apt-get update'
+}
+
+exec { 'install-properties':
+    command => "/usr/bin/apt-get install -y python-software-properties",
+    require => Exec["apt-get update"]
+}
+
+exec { "update-nginx":
+    command => "/usr/bin/add-apt-repository -y ppa:nginx/stable && /usr/bin/apt-get update",
+    require => Exec["install-properties"]
 }
 
 package { 'nginx': 
     ensure => present,
-    require => Exec['apt-get update'],
+    require => Exec['update-nginx']
 }
 
 service { 'nginx':
     ensure => running,
-    require => Package['nginx'],
+    require => Package['nginx']
 }
 
+# golang version
 $version = "1.1.2"
 
 exec { "download-golang":
