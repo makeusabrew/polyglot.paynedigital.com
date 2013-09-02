@@ -51,3 +51,8 @@ package { "php5-fpm":
     ensure  => present,
     require => Exec["update"],
 }
+
+service { "php5-fpm":
+    ensure  => running,
+    require => Package["php5-fpm"],
+}
