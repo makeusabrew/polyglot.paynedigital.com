@@ -1,24 +1,14 @@
 # general packages & services
 
-exec { "update":
-    command => '/usr/bin/apt-get update',
-}
-
-exec { 'install-properties':
-    command => "/usr/bin/apt-get install -y python-software-properties",
-    require => Exec["update"],
-}
+class { "apt": }
 
 # nginx
 
-exec { "add-nginx-package":
-    command => "/usr/bin/add-apt-repository -y ppa:nginx/stable && /usr/bin/apt-get update",
-    require => Exec["install-properties"],
-}
+apt::ppa { "ppa:nginx/stable": }
 
 package { 'nginx': 
     ensure  => present,
-    require => Exec['add-nginx-package'],
+    require => Apt::Ppa["ppa:nginx/stable"],
 }
 
 service { 'nginx':
@@ -45,6 +35,7 @@ exec { "download-golang":
 }
 
 exec { "unarchive-golang-tools":
+    # @TODO test for golang binary first
     command => "/bin/tar -C /usr/local -xzf /usr/local/src/go${version}.linux-amd64.tar.gz",
     require => Exec["download-golang"],
 }
@@ -63,7 +54,6 @@ exec { "setup-workspace":
 
 package { "php5-fpm":
     ensure  => present,
-    require => Exec["update"],
 }
 
 service { "php5-fpm":
@@ -73,12 +63,9 @@ service { "php5-fpm":
 
 # nodejs
 
-exec { "add-nodejs-package":
-    command => "/usr/bin/add-apt-repository -y ppa:chris-lea/node.js && /usr/bin/apt-get update",
-    require => Exec["install-properties"],
-}
+apt::ppa { "ppa:chris-lea/node.js": }
 
 package { "nodejs":
     ensure  => present,
-    require => Exec["add-nodejs-package"],
+    require => Apt::Ppa["ppa:chris-lea/node.js"],
 }
