@@ -51,10 +51,12 @@ exec { "unarchive-golang-tools":
 
 exec { "setup-path":
     command => "/bin/echo 'export PATH=/vagrant/bin:/usr/local/go/bin:\$PATH' >> /home/vagrant/.profile",
+    unless  => "/bin/grep -q /usr/local/go /home/vagrant/.profile ; /usr/bin/test $? -eq 0",
 }
 
 exec { "setup-workspace":
     command => "/bin/echo 'export GOPATH=/vagrant' >> /home/vagrant/.profile",
+    unless  => "/bin/grep -q GOPATH /home/vagrant/.profile ; /usr/bin/test $? -eq 0"
 }
 
 # php
@@ -68,6 +70,8 @@ service { "php5-fpm":
     ensure  => running,
     require => Package["php5-fpm"],
 }
+
+# nodejs
 
 exec { "add-nodejs-package":
     command => "/usr/bin/add-apt-repository -y ppa:chris-lea/node.js && /usr/bin/apt-get update",
