@@ -9,6 +9,8 @@ exec { 'install-properties':
     require => Exec["update"],
 }
 
+# nginx
+
 exec { "add-nginx-package":
     command => "/usr/bin/add-apt-repository -y ppa:nginx/stable && /usr/bin/apt-get update",
     require => Exec["install-properties"],
@@ -23,6 +25,16 @@ service { 'nginx':
     ensure  => running,
     require => Package['nginx'],
 }
+
+file { "nginx-vhost":
+    path    => "/etc/nginx/sites-available/default",
+    ensure  => file,
+    replace => true,
+    require => Package["nginx"],
+    source  => 'puppet:///modules/nginx/default',
+    notify  => Service["nginx"],
+}
+
 
 # golang version
 $version = "1.1.2"
