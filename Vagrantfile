@@ -9,6 +9,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
+  # nginx
+  config.vm.network :forwarded_port, guest: 80, host: 9999
+
   # golang testing
   config.vm.network :forwarded_port, guest: 8081, host: 8081
   # nodejs testing
@@ -16,6 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "conf/puppet/manifests"
+    puppet.module_path   = "conf/puppet/modules"
   end
 
 
