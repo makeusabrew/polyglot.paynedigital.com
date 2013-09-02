@@ -9,18 +9,18 @@ exec { 'install-properties':
     require => Exec["update"],
 }
 
-exec { "update-nginx":
+exec { "add-nginx-package":
     command => "/usr/bin/add-apt-repository -y ppa:nginx/stable && /usr/bin/apt-get update",
     require => Exec["install-properties"],
 }
 
 package { 'nginx': 
-    ensure => present,
-    require => Exec['update-nginx'],
+    ensure  => present,
+    require => Exec['add-nginx-package'],
 }
 
 service { 'nginx':
-    ensure => running,
+    ensure  => running,
     require => Package['nginx'],
 }
 
@@ -55,4 +55,14 @@ package { "php5-fpm":
 service { "php5-fpm":
     ensure  => running,
     require => Package["php5-fpm"],
+}
+
+exec { "add-nodejs-package":
+    command => "/usr/bin/add-apt-repository -y ppa:chris-lea/node.js && /usr/bin/apt-get update",
+    require => Exec["install-properties"],
+}
+
+package { "nodejs":
+    ensure  => present,
+    require => Exec["add-nodejs-package"],
 }
