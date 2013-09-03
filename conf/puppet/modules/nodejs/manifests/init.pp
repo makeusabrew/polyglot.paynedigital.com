@@ -1,6 +1,5 @@
-class { "apt": }
-
 class nodejs {
+
     apt::ppa { "ppa:chris-lea/node.js": }
 
     package { "nodejs":

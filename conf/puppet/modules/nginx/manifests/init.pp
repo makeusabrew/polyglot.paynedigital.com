@@ -1,6 +1,5 @@
-class { "apt": }
-
 class nginx {
+
     apt::ppa { "ppa:nginx/stable": }
 
     package { 'nginx':
