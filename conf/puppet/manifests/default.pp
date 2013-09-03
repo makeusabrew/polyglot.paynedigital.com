@@ -6,7 +6,7 @@ class { "apt": }
 
 apt::ppa { "ppa:nginx/stable": }
 
-package { 'nginx': 
+package { 'nginx':
     ensure  => present,
     require => Apt::Ppa["ppa:nginx/stable"],
 }
@@ -35,8 +35,8 @@ exec { "download-golang":
 }
 
 exec { "unarchive-golang-tools":
-    # @TODO test for golang binary first
     command => "/bin/tar -C /usr/local -xzf /usr/local/src/go${version}.linux-amd64.tar.gz",
+    unless  => "/usr/bin/test -d /usr/local/go/bin",
     require => Exec["download-golang"],
 }
 
@@ -47,7 +47,7 @@ exec { "setup-path":
 
 exec { "setup-workspace":
     command => "/bin/echo 'export GOPATH=/vagrant' >> /home/vagrant/.profile",
-    unless  => "/bin/grep -q GOPATH /home/vagrant/.profile ; /usr/bin/test $? -eq 0"
+    unless  => "/bin/grep -q GOPATH /home/vagrant/.profile ; /usr/bin/test $? -eq 0",
 }
 
 # php
