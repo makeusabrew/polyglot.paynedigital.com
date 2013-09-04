@@ -11,5 +11,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     http.HandleFunc("/", handler)
-    http.ListenAndServe(":8081", nil)
+
+    err := http.ListenAndServe(":8081", nil)
+
+    if err != nil {
+        fmt.Println("ListenAndServe error", err)
+    }
 }
