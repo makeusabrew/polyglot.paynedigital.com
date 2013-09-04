@@ -3,14 +3,14 @@ package main
 import (
     "fmt"
     "net/http"
+    // bad practice, but not sure how to organise go code when it's out
+    // of its usual habitat
+    "./pkg/polyglot"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprint(w, "Hello go!");
-}
-
 func main() {
-    http.HandleFunc("/", handler)
+    http.HandleFunc("/", polyglot.RouteRequests())
+    http.Handle("/assets", http.FileServer(http.Dir("../../public")))
 
     err := http.ListenAndServe(":8081", nil)
 
