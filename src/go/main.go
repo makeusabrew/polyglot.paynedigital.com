@@ -10,7 +10,7 @@ import (
 
 func main() {
     http.HandleFunc("/", polyglot.RouteRequests())
-    http.Handle("/assets", http.FileServer(http.Dir("../../public")))
+    http.Handle("/assets/", http.FileServer(http.Dir("../../public")))
 
     err := http.ListenAndServe(":8081", nil)
 
