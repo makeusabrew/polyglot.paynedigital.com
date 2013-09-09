@@ -8,7 +8,7 @@ the moment looks like:
 * Go
 * Scala
 * Ruby
-* PHP (just a clone of [the original repo](https://github.com/makeusabrew/paynedigital.com))
+* PHP (just a submodule containing [the original repo](https://github.com/makeusabrew/paynedigital.com))
 * NodeJS
 
 Technology wise, the things of interest (to me) are:

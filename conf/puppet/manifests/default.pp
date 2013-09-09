@@ -15,6 +15,11 @@ service { "php5-fpm":
     require => Package["php5-fpm"],
 }
 
+package { "php5-mysql":
+    ensure => present,
+    notify => Service["php5-fpm"],
+}
+
 $php_src = "/vagrant/src/php"
 
 # php *code*
