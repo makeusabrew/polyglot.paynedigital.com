@@ -1,5 +1,3 @@
-class { "apt": }
-
 class { "nginx": }
 
 class { "nodejs": }
