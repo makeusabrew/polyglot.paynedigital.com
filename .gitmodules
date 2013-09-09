@@ -4,3 +4,6 @@
 [submodule "conf/puppet/modules/stdlib"]
 	path = conf/puppet/modules/stdlib
 	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "src/php"]
+	path = src/php
+	url = git@github.com:makeusabrew/paynedigital.com.git
