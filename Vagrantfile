@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # make sure everything's up to date first; makes our puppet
   # manifests a bit cleaner
-  config.vm.provision :shell, :inline => "apt-get update -qq"
+  config.vm.provision :shell, :inline => "apt-get update -q"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "conf/puppet/manifests"

@@ -14,3 +14,26 @@ service { "php5-fpm":
     ensure  => running,
     require => Package["php5-fpm"],
 }
+
+$php_src = "/vagrant/src/php"
+
+# php *code*
+exec { "php npm dependencies":
+    command => "/usr/bin/npm install",
+    cwd     => $php_src,
+    require => Package["nodejs"],
+}
+
+file { "php logs directory":
+    ensure => directory,
+    group  => "www-data",
+    mode   => 0775,
+    path   => "$php_src/log",
+}
+
+file { "php tmp directory":
+    ensure => directory,
+    group  => "www-data",
+    mode   => 0775,
+    path   => "$php_src/tmp/templates_c",
+}
