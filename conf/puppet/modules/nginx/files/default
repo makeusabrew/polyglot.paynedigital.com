@@ -6,6 +6,7 @@ upstream pd_polyglot {
 
 server {
     listen 80;
+    server_name polyglot.paynedigital.com;
 
     location / {
           proxy_pass http://pd_polyglot;
