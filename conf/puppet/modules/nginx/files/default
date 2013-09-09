@@ -1,6 +1,7 @@
 upstream pd_polyglot {
     server 127.0.0.1:8081;    
     server 127.0.0.1:8082;
+    server 127.0.0.1:8083;
 }
 
 server {
@@ -12,7 +13,7 @@ server {
 }
 
 server {
-    listen 81;
+    listen 8083;
 
     root /vagrant/src/php/public;
     index index.php;

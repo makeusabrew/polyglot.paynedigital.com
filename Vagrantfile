@@ -17,6 +17,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 8081, host: 8081
   # nodejs testing
   config.vm.network :forwarded_port, guest: 8082, host: 8082
+  # php testing
+  config.vm.network :forwarded_port, guest: 8083, host: 8083
 
   # make sure everything's up to date first; makes our puppet
   # manifests a bit cleaner
