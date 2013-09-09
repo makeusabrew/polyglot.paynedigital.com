@@ -10,3 +10,27 @@ server {
           proxy_pass http://pd_polyglot;
     }
 }
+
+server {
+    listen 81;
+
+    root /vagrant/src/php/public;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ @rewrite;
+    }
+
+    location @rewrite {
+        rewrite ^(.*)$ /index.php last;
+    }
+
+    location ~ \.php {
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param PROJECT_MODE "build";
+        fastcgi_param SERVER_NAME $http_host;
+    }
+}
