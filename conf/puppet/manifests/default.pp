@@ -4,6 +4,8 @@ class { "nodejs": }
 
 class { "golang": }
 
+class { "rails": }
+
 # php
 
 package { "php5-fpm":

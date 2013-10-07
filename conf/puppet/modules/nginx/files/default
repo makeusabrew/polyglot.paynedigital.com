@@ -1,7 +1,8 @@
 upstream pd_polyglot {
-    server 127.0.0.1:8081;    
+    server 127.0.0.1:8081;
     server 127.0.0.1:8082;
     server 127.0.0.1:8083;
+    server 127.0.0.1:3000;
 }
 
 server {
