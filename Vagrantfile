@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = "polyglot.paynedigital.com"
 
   # nginx
-  config.vm.network :forwarded_port, guest: 80, host: 9999
+  config.vm.network :forwarded_port, guest: 80, host: 9998
 
   # golang testing
   config.vm.network :forwarded_port, guest: 8081, host: 8081
@@ -20,6 +20,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # php testing
   config.vm.network :forwarded_port, guest: 8083, host: 8083
 
+  # rails testing
+  config.vm.network :forwarded_port, guest: 3000, host: 3000
+
   # make sure everything's up to date first; makes our puppet
   # manifests a bit cleaner
   config.vm.provision :shell, :inline => "apt-get update -q"
@@ -27,6 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "conf/puppet/manifests"
     puppet.module_path   = "conf/puppet/modules"
+    #puppet.options = "--verbose --debug"
   end
 
 
