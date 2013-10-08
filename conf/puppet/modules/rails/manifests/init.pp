@@ -34,7 +34,8 @@ class rails {
 
     exec { "install_rails":
         command => "${as_vagrant} 'gem install rails --version=4.0.0 --no-rdoc --no-ri'",
-        creates => "${home}/.rvm/bin/rails",
+        # not ideal at all but will do for now
+        creates => "${home}/.rvm/gems/ruby-2.0.0-p247/bin/rails",
         require => Exec['install_ruby'],
     }
 
